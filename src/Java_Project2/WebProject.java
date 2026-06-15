@@ -1,19 +1,10 @@
 package Java_Project2;
 
-/**
- * WebProject 클래스 - 웹 프로젝트 유형
- *
- * Project(부모 클래스)를 상속받아 웹 프로젝트에 맞는
- * 품질 점수 계산 방식을 구현한다.
- * 웹 프로젝트는 '배포 여부'에 가장 높은 가중치(30점)를 부여한다.
- *
- * 가중치: README(20) / 배포(30) / 커밋(15) / 기술스택(20) / 설명(15)
- */
-public class WebProject extends Project { // [상속] - Project 클래스를 상속받음
+// 웹 프로젝트 클래스 - Project를 상속받아 웹 전용 점수 계산 구현
+// 가중치: README(20) / 배포(30) / 커밋(15) / 기술스택(20) / 설명(15)
+public class WebProject extends Project { // [상속]
 
-    /**
-     * 생성자 - 부모 클래스의 생성자를 호출하여 모든 필드를 초기화한다.
-     */
+    // 생성자 - 부모 생성자에 그대로 넘김 // [생성자]
     public WebProject(String projectName, String language, String githubUrl,
                       int commitCount, boolean hasReadme, boolean isDeployed,
                       int techStackCount, int descriptionLength) {
@@ -21,15 +12,8 @@ public class WebProject extends Project { // [상속] - Project 클래스를 상
               hasReadme, isDeployed, techStackCount, descriptionLength); // [생성자 - super 호출]
     }
 
-    /**
-     * 웹 프로젝트의 품질 점수를 계산한다. (100점 만점)
-     *
-     * 웹 프로젝트는 배포 여부(30점)가 가장 중요하며,
-     * README(20점), 기술스택(20점), 커밋 수(15점), 설명 길이(15점) 순이다.
-     *
-     * @return 계산된 품질 점수 (0~100, 정수)
-     */
-    @Override // [오버라이딩] - 부모의 추상 메서드를 웹 프로젝트 방식으로 구현
+    // 점수 계산 - 웹은 배포(30점) 가중치가 제일 높음 // [오버라이딩]
+    @Override
     public int calculateQualityScore() {
         double score = 0;
 
@@ -51,12 +35,8 @@ public class WebProject extends Project { // [상속] - Project 클래스를 상
         return (int) Math.round(score); // 정수로 반올림하여 반환
     }
 
-    /**
-     * 프로젝트 유형 이름을 반환한다.
-     *
-     * @return "웹 프로젝트"
-     */
-    @Override // [오버라이딩]
+    // 유형 이름 반환 // [오버라이딩]
+    @Override
     public String getProjectType() {
         return "웹 프로젝트";
     }
