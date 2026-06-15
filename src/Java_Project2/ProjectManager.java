@@ -86,20 +86,15 @@ public class ProjectManager { // [클래스]
         System.out.print("GitHub 주소 : ");
         String url = sc.nextLine();
 
-        System.out.print("커밋 수 : ");
-        int commits = Integer.parseInt(sc.nextLine());
+        int commits = readInt("커밋 수 : ");        // 숫자 아니면 다시 입력받음
 
-        System.out.print("README 있나요? (y/n) : ");
-        boolean readme = sc.nextLine().equals("y");
+        boolean readme = readYesNo("README 있나요? (y/n) : ");
 
-        System.out.print("배포했나요? (y/n) : ");
-        boolean deployed = sc.nextLine().equals("y");
+        boolean deployed = readYesNo("배포했나요? (y/n) : ");
 
-        System.out.print("기술스택 개수 : ");
-        int stack = Integer.parseInt(sc.nextLine());
+        int stack = readInt("기술스택 개수 : ");
 
-        System.out.print("설명 글자 수 : ");
-        int descLen = Integer.parseInt(sc.nextLine());
+        int descLen = readInt("설명 글자 수 : ");
 
         // 유형에 맞는 객체 생성 // [다형성]
         Project p; // 부모 타입으로 선언 // [다형성]
@@ -145,5 +140,38 @@ public class ProjectManager { // [클래스]
         System.out.println("  60점 미만 → D");
         System.out.println();
         System.out.println("※ 프로젝트 유형마다 항목별 가중치가 다릅니다.");
+    }
+
+    // 0 이상 정수를 안전하게 입력받음 (숫자 아니거나 음수면 다시 입력)
+    private int readInt(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = sc.nextLine().trim();
+            try {
+                int value = Integer.parseInt(input);
+                if (value < 0) {
+                    System.out.println("0 이상의 숫자를 입력해주세요.");
+                    continue;
+                }
+                return value;
+            } catch (NumberFormatException e) {
+                System.out.println("숫자를 입력해주세요.");
+            }
+        }
+    }
+
+    // y/n 입력받아서 boolean으로 변환 (대소문자 둘 다 허용)
+    private boolean readYesNo(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = sc.nextLine().trim();
+            if (input.equalsIgnoreCase("y")) {
+                return true;
+            } else if (input.equalsIgnoreCase("n")) {
+                return false;
+            } else {
+                System.out.println("y 또는 n을 입력해주세요.");
+            }
+        }
     }
 }
